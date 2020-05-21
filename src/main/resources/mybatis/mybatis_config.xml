@@ -23,7 +23,5 @@
 			</dataSource>
 		</environment>
 	</environments>
-	<mappers>
-		<mapper resource="mybatis/mapper/**"/>
-	</mappers>
+
 </configuration>

@@ -20,7 +20,7 @@ public class BaseMapperTest {
 	@BeforeClass
 	public static void init(){
 		try {
-			Reader resourceAsReader = Resources.getResourceAsReader("mybatis_config.xml");
+			Reader resourceAsReader = Resources.getResourceAsReader("mybatis/mybatis_config.xml");
 			sqlSessionFactor = new SqlSessionFactoryBuilder().build(resourceAsReader);
 			resourceAsReader.close();
 		} catch (IOException e) {

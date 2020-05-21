@@ -24,6 +24,5 @@ public interface SysDictMapper {
     @Update("update sys_dict set id = #{id},name=#{name},code=#{code},value=#{value} where id = #{id}")
     int updateByPrimaryKey(SysDict record);
 
-    @Select("select  * from sys_dict")
     List<SysDict> findAll();
 }
