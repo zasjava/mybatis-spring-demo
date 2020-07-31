@@ -1,28 +1,60 @@
 package com.mybatis.spring.sysDict.mapper;
 
 import com.mybatis.spring.sysDict.pojo.SysDict;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-
+import com.mybatis.spring.sysDict.pojo.SysDictExample;
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface SysDictMapper {
-    @Delete("delete from sys_dict where id = #{id}")
+    long countByExample(SysDictExample example);
+
+    int deleteByExample(SysDictExample example);
+
+    /**
+     * delete by primary key
+     * @param id primaryKey
+     * @return deleteCount
+     */
     int deleteByPrimaryKey(Long id);
 
-    @Insert("insert into sys_dict (code,name,value) values(#{code} ,#{name} ,#{value})")
+    /**
+     * insert record to table
+     * @param record the record
+     * @return insert count
+     */
     int insert(SysDict record);
 
+    /**
+     * insert record to table selective
+     * @param record the record
+     * @return insert count
+     */
     int insertSelective(SysDict record);
 
-    @Select("select * from sys_dict where id = #{id}")
+    List<SysDict> selectByExample(SysDictExample example);
+
+    /**
+     * select by primary key
+     * @param id primary key
+     * @return object by primary key
+     */
     SysDict selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(SysDict record);
-    @Update("update sys_dict set id = #{id},name=#{name},code=#{code},value=#{value} where id = #{id}")
-    int updateByPrimaryKey(SysDict record);
+    int updateByExampleSelective(@Param("record") SysDict record, @Param("example") SysDictExample example);
 
-    List<SysDict> findAll();
+    int updateByExample(@Param("record") SysDict record, @Param("example") SysDictExample example);
+
+    /**
+     * update record selective
+     * @param record the updated record
+     * @return update count
+     */
+    int updateByPrimaryKeySelective(SysDict record);
+
+    /**
+     * update record
+     * @param record the updated record
+     * @return update count
+     */
+    int updateByPrimaryKey(SysDict record);
 }

@@ -19,7 +19,7 @@
 		<th>类别名</th>
 		<th>字典名</th>
 		<th>字典值</th>
-		<th>操作[<a href="${path}/dict/goAdd">新增</a>]</th>
+		<th>操作[<a href="${path}/dict/goEdit">新增</a>]</th>
 	</tr>
 		<c:forEach items="${dicts}" var="dict">
 			<tr id="dict-${dict.id}">
@@ -27,7 +27,7 @@
 				<th>${dict.name}</th>
 				<th>${dict.value}</th>
 				<th>
-					[<a href="${pah}/dict/goAdd?id=${dict.id}">编辑</a>]
+					[<a href="${path}/dict/goEdit?id=${dict.id}">编辑</a>]
 					[<a href="javascript:;" onclick="deleteById(${dict.id},'${dict.name}')">删除</a>]
 				</th>
 			</tr>

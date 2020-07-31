@@ -9,9 +9,11 @@
   	http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<mvc:annotation-driven/>
+	<context:component-scan base-package="com.mybatis.spring.*.controller"/>
 	<mvc:resources mapping="/jsp/**" location="/WEB-INF/jsp/"/>
 	<mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
-	<context:component-scan base-package="com.mybatis.spring.*.controller"/>
+	<mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>
+	<mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/WEB-INF/jsp/"/>

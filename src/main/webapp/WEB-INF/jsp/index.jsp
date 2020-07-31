@@ -14,5 +14,6 @@
 	<p>
 		服务器时间：<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/>
 	</p>
+	<a href="${pageContext.request.contextPath}/dict/list">访问字段页面</a>
 </body>
 </html>
