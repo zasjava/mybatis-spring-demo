@@ -4,6 +4,7 @@ import com.mybatis.spring.sysDict.pojo.SysDict;
 import com.mybatis.spring.sysDict.service.SysDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,7 +30,7 @@ public class DictController {
 
     @RequestMapping("/list")
     @ApiOperation(response = ModelAndView.class,notes = "字段页面",httpMethod = "GET",value = "/dict/list")
-    public ModelAndView docts(SysDict sysDict, Integer offset, Integer limit) {
+    public ModelAndView docts(SysDict sysDict, @ApiParam("当前页") Integer offset, @ApiParam("每页显示行数") Integer limit) {
         ModelAndView mv = new ModelAndView("/dict/dict");
         List<SysDict> dicts = dictService.findBySysDict(sysDict, offset, limit);
         mv.addObject("dicts", dicts);

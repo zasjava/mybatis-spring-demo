@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @ApiModel(value="com-mybatis-spring-sysDict-pojo-SysDict")
 public class SysDict implements Serializable {
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value="字典id")
     private Long id;
 
     /**

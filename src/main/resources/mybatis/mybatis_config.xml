@@ -16,10 +16,10 @@
 		<environment id="development">
 			<transactionManager type="JDBC"></transactionManager>
 			<dataSource type="UNPOOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver"/>
-				<property name="url" value="jdbc:mysql://localhost:3306/mybatis?characterEncoding=UTF-8"/>
-				<property name="username" value="root"/>
-				<property name="password" value="root"/>
+				<property name="driver" value="${mysql.driver}}"/>
+				<property name="url" value="${mysql.url}"/>
+				<property name="username" value="${mysql.username}"/>
+				<property name="password" value="${mysql.password}"/>
 			</dataSource>
 		</environment>
 	</environments>
