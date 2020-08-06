@@ -1,10 +1,12 @@
 package com.mybatis.spring.sysDict.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.mybatis.spring.sysDict.pojo.SysDict;
 import com.mybatis.spring.sysDict.service.SysDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,6 +37,18 @@ public class DictController {
         List<SysDict> dicts = dictService.findBySysDict(sysDict, offset, limit);
         mv.addObject("dicts", dicts);
         return mv;
+    }
+
+    @RequestMapping("/lists")
+    @ApiOperation(response = SysDict.class,notes = "分页查询字典列表",httpMethod = "GET",value = "/dict/list")
+    @ResponseBody
+    public JSONObject lists(SysDict sysDict, @ApiParam("当前页") Integer offset, @ApiParam("每页显示行数") Integer limit){
+        JSONObject jsonObject = new JSONObject();
+        List<SysDict> lists =dictService.lists(sysDict, offset, limit);
+        PageInfo<SysDict> pageInfo = new PageInfo<>(lists);
+        jsonObject.put("total",pageInfo.getTotal());
+        jsonObject.put("rows", pageInfo.getList());
+        return jsonObject;
     }
 
     @RequestMapping(value = "goEdit", method = RequestMethod.GET)

@@ -1,8 +1,9 @@
 package com.mybatis.spring.sysDict.service;
 
-import java.util.List;
-import com.mybatis.spring.sysDict.pojo.SysDictExample;
 import com.mybatis.spring.sysDict.pojo.SysDict;
+import com.mybatis.spring.sysDict.pojo.SysDictExample;
+
+import java.util.List;
 public interface SysDictService{
 
 
@@ -31,4 +32,6 @@ public interface SysDictService{
     List<SysDict> findBySysDict(SysDict sysDict, Integer offset, Integer limit);
 
     void saveOrUpdate(SysDict sysDict);
+
+    List<SysDict> lists(SysDict sysDict, Integer offset, Integer limit);
 }

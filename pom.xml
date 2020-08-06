@@ -16,23 +16,29 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
-    <zookeeper.version>3.4.6</zookeeper.version>
+    <cache.version>1.0-SNAPSHOT</cache.version>
+    <slf4j.log.version>1.7.12</slf4j.log.version>
+    <log4j.version>1.2.17</log4j.version>
     <servelt.api>2.5</servelt.api>
     <jsp.api>2.1</jsp.api>
     <jstl.version>1.2</jstl.version>
+    <junit.version>4.12</junit.version>
+    <mysql.connector.java>5.1.38</mysql.connector.java>
     <mybatis.version>3.3.0</mybatis.version>
     <mybatis.spring.version>1.3.0</mybatis.spring.version>
     <mybatis.genertor.core>1.3.3</mybatis.genertor.core>
     <mybatis.ehcache>1.0.3</mybatis.ehcache>
-    <mysql.connector.java>5.1.38</mysql.connector.java>
-    <slf4j.log.version>1.7.12</slf4j.log.version>
-    <log4j.version>1.2.17</log4j.version>
-    <junit.version>4.12</junit.version>
     <jackson.databind>2.8.4</jackson.databind>
     <aspectjweaver.version>1.8.2</aspectjweaver.version>
+    <zookeeper.version>3.4.6</zookeeper.version>
+    <pagehelper.version>5.0.0</pagehelper.version>
+    <pagehelper.jsqlparser>1.2</pagehelper.jsqlparser>
     <springfox.swagger2.version>2.7.0</springfox.swagger2.version>
-    <cache.version>1.0-SNAPSHOT</cache.version>
-
+    <commons.beanutils>1.7.0</commons.beanutils>
+    <commons.collections>3.1</commons.collections>
+    <commons.lang>2.5</commons.lang>
+    <ezmorph>1.0.3</ezmorph>
+    <json.lib>2.4</json.lib>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -46,6 +52,50 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+
+    <!--Json array start -->
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>${commons.beanutils}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>${commons.collections}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${commons.lang}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.ezmorph</groupId>
+      <artifactId>ezmorph</artifactId>
+      <version>${ezmorph}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.json-lib</groupId>
+      <artifactId>json-lib</artifactId>
+      <version>${json.lib}</version>
+      <classifier>jdk15</classifier>
+    </dependency>
+    <!--Json array end -->
+
+
+
+    <!--分页插件https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>${pagehelper.version}</version>
+    </dependency>
+    <!-- 分页要用到此包 https://mvnrepository.com/artifact/com.github.jsqlparser/jsqlparser -->
+    <dependency>
+      <groupId>com.github.jsqlparser</groupId>
+      <artifactId>jsqlparser</artifactId>
+      <version>${pagehelper.jsqlparser}</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.zookeeper</groupId>
       <artifactId>zookeeper</artifactId>
@@ -187,11 +237,11 @@
       <version>${springfox.swagger2.version}</version>
     </dependency>
 
-    <dependency>
+  <!--  <dependency>
       <groupId>com.cache</groupId>
       <artifactId>cache</artifactId>
       <version>${cache.version}</version>
-    </dependency>
+    </dependency>-->
   </dependencies>
 
 

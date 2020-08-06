@@ -1,13 +1,15 @@
 package com.mybatis.spring.sysDict.service.impl;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import java.util.List;
-import com.mybatis.spring.sysDict.pojo.SysDictExample;
+import com.github.pagehelper.PageHelper;
 import com.mybatis.spring.sysDict.mapper.SysDictMapper;
 import com.mybatis.spring.sysDict.pojo.SysDict;
+import com.mybatis.spring.sysDict.pojo.SysDictExample;
 import com.mybatis.spring.sysDict.service.SysDictService;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class SysDictServiceImpl implements SysDictService{
@@ -83,6 +85,12 @@ public class SysDictServiceImpl implements SysDictService{
             return;
         }
         sysDictMapper.updateByPrimaryKey(sysDict);
+    }
+
+    @Override
+    public List<SysDict> lists(SysDict sysDict, Integer offset, Integer limit) {
+        PageHelper.startPage(offset, limit);
+        return sysDictMapper.selectByExample(null);
     }
 
 }

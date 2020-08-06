@@ -1,4 +1,4 @@
-package com.mybatis.spring.sysDict;
+package com.mybatis.spring;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ClassName com.mybatis.spring.sysDict.Generator
+ * @ClassName com.mybatis.spring.Generator
  * @Description TODO
  * @Author zhaoasong
  * @Date 2020-2-12 12:53

@@ -12,6 +12,15 @@
 	<typeAliases>
 		<package name="com.mybatis.spring.*.pojo"/>
 	</typeAliases>
+
+	<plugins>
+		<!-- com.github.pagehelper为PageHelper类所在包名 -->
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<!-- 使用MySQL方言的分页 -->
+			<property name="helperDialect" value="mysql"/><!--如果使用mysql，这里value为mysql-->
+			<property name="pageSizeZero" value="true"/>
+		</plugin>
+	</plugins>
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC"></transactionManager>
