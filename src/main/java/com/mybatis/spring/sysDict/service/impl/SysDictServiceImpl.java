@@ -81,7 +81,7 @@ public class SysDictServiceImpl implements SysDictService{
     public void saveOrUpdate(SysDict sysDict) {
         Long id = sysDict.getId();
         if (StringUtils.isEmpty(id)) {
-            sysDictMapper.insertSelective(sysDict);
+            int i = sysDictMapper.insertSelective(sysDict);
             return;
         }
         sysDictMapper.updateByPrimaryKey(sysDict);
