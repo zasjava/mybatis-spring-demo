@@ -131,8 +131,10 @@
             pageNumber: 1,
             //可供选择的每页的行数
             pageList: "[10, 20, 50, 80, 100]",
+            paginationFirstText: "首页",
             paginationPreText: "上一页",
             paginationNextText: "下一页",
+            paginationLastText: "末页",
             //按钮样式
             buttonsClass: 'btn',
             //分页器class

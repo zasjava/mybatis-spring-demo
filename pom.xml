@@ -39,6 +39,8 @@
     <commons.lang>2.5</commons.lang>
     <ezmorph>1.0.3</ezmorph>
     <json.lib>2.4</json.lib>
+    <huttol-all.version>4.5.7</huttol-all.version>
+    <logstash.logback.encoder.version>4.8</logstash.logback.encoder.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -235,6 +237,16 @@
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
       <version>${springfox.swagger2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>${huttol-all.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.logstash.logback</groupId>
+      <artifactId>logstash-logback-encoder</artifactId>
+      <version>${logstash.logback.encoder.version}</version>
     </dependency>
 
   <!--  <dependency>

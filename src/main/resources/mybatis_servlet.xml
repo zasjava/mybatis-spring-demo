@@ -1,15 +1,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-4.1.xsd
   	http://www.springframework.org/schema/mvc
-    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<mvc:annotation-driven/>
-	<context:component-scan base-package="com.mybatis.spring.*.controller"/>
+	<context:component-scan base-package="com.mybatis.spring.*.controller,com.mybatis.spring.aop"/>
 	<mvc:resources mapping="/jsp/**" location="/WEB-INF/jsp/"/>
 	<mvc:resources mapping="/images/**" location="/WEB-INF/images/"/>
 	<mvc:resources mapping="/plugins/**" location="/WEB-INF/plugins/"/>
@@ -22,4 +22,5 @@
 		<property name="prefix" value="/WEB-INF/jsp/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 </beans>

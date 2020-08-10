@@ -30,7 +30,7 @@
 				</div>
 				<div class="nav navbar-nav">
 					<ul>
-						<li class="active"><a href="${pageContext.request.contextPath}/dict/list">首页</a></li>
+						<li class="active"><a href="${pageContext.request.contextPath}/dict/index">首页</a></li>
 						<li><a href="#">关于</a></li>
 						<li><a href="#">登录</a></li>
 					</ul>

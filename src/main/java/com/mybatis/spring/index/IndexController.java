@@ -3,10 +3,9 @@ package com.mybatis.spring.index;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Date;
 
 /**
  * @ClassName IndexController
@@ -19,9 +18,13 @@ import java.util.Date;
 public class IndexController {
 	@RequestMapping(value = {"/"})
 	@ApiOperation(value = "首页", notes = "去首页页面", httpMethod = "GET", response = ModelAndView.class)
-	public ModelAndView index() {
-		ModelAndView mv = new ModelAndView("index");
-		mv.addObject("now", new Date());
-		return mv;
+	public String index() {
+		return "index";
+	}
+
+	@RequestMapping("/{path}/index")
+	public String commonIndex(@PathVariable("path") String name) {
+		String path = "/"+name+"/"+name;
+		return path;
 	}
 }

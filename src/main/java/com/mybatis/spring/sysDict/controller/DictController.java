@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,19 +33,10 @@ public class DictController {
     @Autowired
     private SysDictService dictService;
 
-    @RequestMapping("/list")
-    @ApiOperation(response = ModelAndView.class,notes = "字段页面",httpMethod = "GET",value = "/dict/list")
-    public ModelAndView docts(SysDict sysDict, @ApiParam("当前页") Integer offset, @ApiParam("每页显示行数") Integer limit) {
-        ModelAndView mv = new ModelAndView("/dict/dict");
-        List<SysDict> dicts = dictService.findBySysDict(sysDict, offset, limit);
-        mv.addObject("dicts", dicts);
-        return mv;
-    }
-
     @RequestMapping("/lists")
     @ApiOperation(response = SysDict.class,notes = "分页查询字典列表",httpMethod = "GET",value = "/dict/lists")
     @ResponseBody
-    public JSONObject lists(SysDict sysDict, @ApiParam("当前页") Integer offset, @ApiParam("每页显示行数") Integer limit){
+    public JSONObject lists(SysDict sysDict, @ApiParam("当前页") @RequestParam(value = "offset",defaultValue = "1") Integer offset, @ApiParam("每页显示行数") @RequestParam(value = "limit",defaultValue = "6") Integer limit){
         JSONObject jsonObject = new JSONObject();
         List<SysDict> lists =dictService.lists(sysDict, offset, limit);
         PageInfo<SysDict> pageInfo = new PageInfo<>(lists);
