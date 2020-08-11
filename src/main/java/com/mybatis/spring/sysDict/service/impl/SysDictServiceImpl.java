@@ -90,7 +90,18 @@ public class SysDictServiceImpl implements SysDictService{
     @Override
     public List<SysDict> lists(SysDict sysDict, Integer offset, Integer limit) {
         PageHelper.startPage(offset, limit);
-        return sysDictMapper.selectByExample(null);
+        SysDictExample example = new SysDictExample();
+        SysDictExample.Criteria criteria = example.createCriteria();
+        if (!StringUtils.isEmpty(sysDict.getName())) {
+            criteria.andNameEqualTo(sysDict.getName());
+        }
+        if (!StringUtils.isEmpty(sysDict.getCode())) {
+            criteria.andNameEqualTo(sysDict.getCode());
+        }
+        if (!StringUtils.isEmpty(sysDict.getValue())) {
+            criteria.andNameEqualTo(sysDict.getValue());
+        }
+        return sysDictMapper.selectByExample(example);
     }
 
 }

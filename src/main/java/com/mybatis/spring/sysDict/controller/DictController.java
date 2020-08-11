@@ -33,7 +33,7 @@ public class DictController {
     @Autowired
     private SysDictService dictService;
 
-    @RequestMapping("/lists")
+    @RequestMapping(value = "/lists",method = RequestMethod.POST )
     @ApiOperation(response = SysDict.class,notes = "分页查询字典列表",httpMethod = "GET",value = "/dict/lists")
     @ResponseBody
     public JSONObject lists(SysDict sysDict, @ApiParam("当前页") @RequestParam(value = "offset",defaultValue = "1") Integer offset, @ApiParam("每页显示行数") @RequestParam(value = "limit",defaultValue = "6") Integer limit){
@@ -45,19 +45,6 @@ public class DictController {
         return jsonObject;
     }
 
-    @RequestMapping(value = "goEdit", method = RequestMethod.GET)
-    @ApiOperation(value = "/dict/goEdit" ,notes = "跳转到编辑字典页面",httpMethod = "GET",response = ModelAndView.class)
-    public ModelAndView add(Long id) {
-        ModelAndView mv = new ModelAndView("/dict/dict_add");
-        SysDict sysDict;
-        if (id != null && id.intValue() != 0) {
-            sysDict = dictService.selectByPrimaryKey(id);
-        } else {
-            sysDict = new SysDict();
-        }
-        mv.addObject("model", sysDict);
-        return mv;
-    }
 
     @RequestMapping(value = "saveEdit", method = RequestMethod.POST)
     @ApiOperation(value ="/dict/saveEdit",notes = "保存字典编辑",httpMethod = "POST",response = ModelAndView.class)
