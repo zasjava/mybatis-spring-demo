@@ -9,10 +9,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>index</title>
 	<c:set var="path" value="${pageContext.request.contextPath}"/>
-	<link rel="stylesheet" href="plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="plugins/bootstrap-3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css"/>
 	<script src="plugins/jquery-3.4.1.min.js"></script>
-	<script src="plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 	<body>
