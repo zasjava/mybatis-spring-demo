@@ -3,7 +3,7 @@
 <mapper namespace="com.mybatis.spring.sysDict.mapper.SysDictMapper">
   <resultMap id="BaseResultMap" type="com.mybatis.spring.sysDict.pojo.SysDict">
     <!--@mbg.generated-->
-    <!--@Table mybatis.sys_dict-->
+    <!--@Table sys_dict-->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -73,6 +73,8 @@
     <!--@mbg.generated-->
     id, code, `name`, `value`
   </sql>
+
+
   <select id="selectByExample" parameterType="com.mybatis.spring.sysDict.pojo.SysDictExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select
@@ -80,7 +82,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from mybatis.sys_dict
+    from sys_dict
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,35 +90,39 @@
       order by ${orderByClause}
     </if>
   </select>
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from mybatis.sys_dict
+    from sys_dict
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--@mbg.generated-->
-    delete from mybatis.sys_dict
+    delete from sys_dict
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.mybatis.spring.sysDict.pojo.SysDictExample">
     <!--@mbg.generated-->
-    delete from mybatis.sys_dict
+    delete from sys_dict
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.mybatis.spring.sysDict.pojo.SysDict" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into mybatis.sys_dict (code, `name`, `value`
+    insert into sys_dict (code, `name`, `value`
       )
     values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.mybatis.spring.sysDict.pojo.SysDict" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into mybatis.sys_dict
+    insert into sys_dict
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="code != null">
         code,
@@ -142,14 +148,14 @@
   </insert>
   <select id="countByExample" parameterType="com.mybatis.spring.sysDict.pojo.SysDictExample" resultType="java.lang.Long">
     <!--@mbg.generated-->
-    select count(*) from mybatis.sys_dict
+    select count(*) from sys_dict
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     <!--@mbg.generated-->
-    update mybatis.sys_dict
+    update sys_dict
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -170,7 +176,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     <!--@mbg.generated-->
-    update mybatis.sys_dict
+    update sys_dict
     set id = #{record.id,jdbcType=BIGINT},
       code = #{record.code,jdbcType=VARCHAR},
       `name` = #{record.name,jdbcType=VARCHAR},
@@ -181,7 +187,7 @@
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.mybatis.spring.sysDict.pojo.SysDict">
     <!--@mbg.generated-->
-    update mybatis.sys_dict
+    update sys_dict
     <set>
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
@@ -197,7 +203,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mybatis.spring.sysDict.pojo.SysDict">
     <!--@mbg.generated-->
-    update mybatis.sys_dict
+    update sys_dict
     set code = #{code,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
       `value` = #{value,jdbcType=VARCHAR}

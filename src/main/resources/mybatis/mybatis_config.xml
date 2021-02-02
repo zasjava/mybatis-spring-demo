@@ -10,7 +10,8 @@
 		<setting name="cacheEnabled" value="true"/>
 	</settings>
 	<typeAliases>
-		<package name="com.mybatis.spring.*.pojo"/>
+		<package name="com.mybatis.spring.index.pojo"/>
+		<package name="com.mybatis.spring.sysDict.pojo"/>
 	</typeAliases>
 
 	<plugins>

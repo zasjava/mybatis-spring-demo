@@ -218,12 +218,35 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.databind}</version>
     </dependency>
+    <!-- 测试使用开始 -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>spring-mock-mvc</artifactId>
+            <version>2.4.0</version>
+            <scope>test</scope>
+        </dependency>
+    <!-- 测试使用结束 -->
 
     <!--pringfox-swagger2 -->
     <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
@@ -248,12 +271,19 @@
       <artifactId>logstash-logback-encoder</artifactId>
       <version>${logstash.logback.encoder.version}</version>
     </dependency>
+    <dependency>
+      <groupId>au.com.dius</groupId>
+      <artifactId>pact-jvm-provider-junit5-spring</artifactId>
+      <version>4.0.10</version>
+      <scope>test</scope>
+    </dependency>
 
-  <!--  <dependency>
-      <groupId>com.cache</groupId>
-      <artifactId>cache</artifactId>
-      <version>${cache.version}</version>
-    </dependency>-->
+
+    <!--  <dependency>
+        <groupId>com.cache</groupId>
+        <artifactId>cache</artifactId>
+        <version>${cache.version}</version>
+      </dependency>-->
   </dependencies>
 
 
@@ -347,6 +377,14 @@
         <configuration>
           <skip>true</skip>
           <testFailureIgnore>true</testFailureIgnore>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
         </configuration>
       </plugin>
     </plugins>

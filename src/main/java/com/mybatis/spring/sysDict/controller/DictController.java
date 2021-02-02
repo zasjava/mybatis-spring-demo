@@ -11,10 +11,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -33,8 +30,8 @@ public class DictController {
     @Autowired
     private SysDictService dictService;
 
-    @RequestMapping(value = "/lists",method = RequestMethod.POST )
-    @ApiOperation(response = SysDict.class,notes = "分页查询字典列表",httpMethod = "GET",value = "/dict/lists")
+    @RequestMapping(value = "/dicts",method = RequestMethod.GET )
+    @ApiOperation(response = SysDict.class,notes = "分页查询字典列表",httpMethod = "GET",value = "/dicts")
     @ResponseBody
     public JSONObject lists(SysDict sysDict, @ApiParam("当前页") @RequestParam(value = "offset",defaultValue = "1") Integer offset, @ApiParam("每页显示行数") @RequestParam(value = "limit",defaultValue = "6") Integer limit){
         JSONObject jsonObject = new JSONObject();
@@ -46,7 +43,7 @@ public class DictController {
     }
 
 
-    @RequestMapping(value = "saveEdit", method = RequestMethod.POST)
+    @RequestMapping(value = "saveEdit", method = {RequestMethod.POST,RequestMethod.PUT})
     @ApiOperation(value ="/dict/saveEdit",notes = "保存字典编辑",httpMethod = "POST",response = ModelAndView.class)
     @ResponseBody
     public CommonResult save(SysDict sysDict) {
@@ -60,10 +57,13 @@ public class DictController {
 
     }
 
-    @RequestMapping(value = "delete")
+
+    //删除
+    @RequestMapping(value = "{dictId}",method = RequestMethod.DELETE)
     @ResponseBody
-    @ApiOperation(value ="/dict/delete",notes = "字典删除",httpMethod = "GET",response = ModelMap.class)
-    public CommonResult delete(Long id) {
+    @ApiOperation(value ="/{dictId}",notes = "字典删除",httpMethod = "DELETE",response = ModelMap.class)
+    public CommonResult delete(@PathVariable(value = "dictId") Long id) {
+        System.out.println(id);
         ModelMap map = new ModelMap();
         try {
             if (dictService.deleteByPrimaryKey(id) > 0 ? true : false) {
