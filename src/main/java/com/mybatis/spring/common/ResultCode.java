@@ -7,19 +7,23 @@ package com.mybatis.spring.common;
 
 public enum ResultCode implements IErrorCode {
     SUCCESS(200, "操作成功"),
+    ISNULL(201, "结果为null"),
     FAILED(500, "操作失败"),
+    NOTEXISTUSER(400,"此用户不存在"),
+    ERRORPWDORUSER(401,"用户名或者密码错误"),
     VALIDATE_FAILED(404, "参数检验失败"),
     UNAUTHORIZED(401, "暂未登录或token已经过期"),
     FORBIDDEN(403, "没有相关权限");
-    private long code;
+
+    private Integer code;
     private String message;
 
-    private ResultCode(long code, String message) {
+    private ResultCode(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public long getCode() {
+    public Integer getCode() {
         return code;
     }
 

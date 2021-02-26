@@ -5,7 +5,7 @@ package com.mybatis.spring.common;
  * Created by macro on 2019/4/19.
  */
 public interface IErrorCode {
-    long getCode();
+    Integer getCode();
 
     String getMessage();
 }

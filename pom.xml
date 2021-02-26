@@ -1,233 +1,285 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.example</groupId>
-  <artifactId>mybatis-spring-demo</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+    <groupId>org.example</groupId>
+    <artifactId>mybatis-spring-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-  <name>mybatis-spring-demo Maven Webapp</name>
-  <url>http://www.example.com</url>
+    <name>mybatis-spring-demo Maven Webapp</name>
+    <url>http://www.example.com</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
-    <cache.version>1.0-SNAPSHOT</cache.version>
-    <slf4j.log.version>1.7.12</slf4j.log.version>
-    <log4j.version>1.2.17</log4j.version>
-    <servelt.api>2.5</servelt.api>
-    <jsp.api>2.1</jsp.api>
-    <jstl.version>1.2</jstl.version>
-    <junit.version>4.12</junit.version>
-    <mysql.connector.java>5.1.38</mysql.connector.java>
-    <mybatis.version>3.3.0</mybatis.version>
-    <mybatis.spring.version>1.3.0</mybatis.spring.version>
-    <mybatis.genertor.core>1.3.3</mybatis.genertor.core>
-    <mybatis.ehcache>1.0.3</mybatis.ehcache>
-    <jackson.databind>2.8.4</jackson.databind>
-    <aspectjweaver.version>1.8.2</aspectjweaver.version>
-    <zookeeper.version>3.4.6</zookeeper.version>
-    <pagehelper.version>5.0.0</pagehelper.version>
-    <pagehelper.jsqlparser>1.2</pagehelper.jsqlparser>
-    <springfox.swagger2.version>2.7.0</springfox.swagger2.version>
-    <commons.beanutils>1.7.0</commons.beanutils>
-    <commons.collections>3.1</commons.collections>
-    <commons.lang>2.5</commons.lang>
-    <ezmorph>1.0.3</ezmorph>
-    <json.lib>2.4</json.lib>
-    <huttol-all.version>4.5.7</huttol-all.version>
-    <logstash.logback.encoder.version>4.8</logstash.logback.encoder.version>
-  </properties>
-  <dependencyManagement>
+    <properties>
+        <servlet.version>4.0.1</servlet.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>5.1.8.RELEASE</spring.version>
+        <dbcp2.version>2.6.0</dbcp2.version>
+        <mysql.connector>5.1.49</mysql.connector>
+        <mybatis.version>3.5.2</mybatis.version>
+        <mybatis.spring.version>2.0.2</mybatis.spring.version>
+        <jackson.version>2.9.9</jackson.version>
+        <log4j2.version>2.12.0</log4j2.version>
+        <log4j.version>1.2.17</log4j.version><!--待定日志-->
+        <slf4j.log.version>1.7.12</slf4j.log.version><!--待定日志-->
+        <junitplatform.version>1.5.0</junitplatform.version>
+        <junit.version>5.5.0</junit.version>
+        <hamcrest.version>2.1</hamcrest.version>
+
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <cache.version>1.0-SNAPSHOT</cache.version>
+        <servelt.api>2.5</servelt.api>
+        <jsp.api>2.1</jsp.api>
+        <jstl.version>1.2</jstl.version>
+        <aspectjweaver.version>1.9.4</aspectjweaver.version>
+
+        <mybatis.genertor.core>1.3.3</mybatis.genertor.core>
+        <mybatis.ehcache>1.0.3</mybatis.ehcache>
+        <zookeeper.version>3.4.6</zookeeper.version>
+        <pagehelper.version>5.0.0</pagehelper.version>
+        <pagehelper.jsqlparser>1.2</pagehelper.jsqlparser>
+        <springfox.swagger2.version>2.7.0</springfox.swagger2.version>
+        <commons.beanutils>1.7.0</commons.beanutils>
+        <commons.collections>3.1</commons.collections>
+        <commons.lang>2.5</commons.lang>
+        <ezmorph>1.0.3</ezmorph>
+        <json.lib>2.4</json.lib>
+        <huttol-all.version>4.5.7</huttol-all.version>
+        <logstash.logback.encoder.version>4.8</logstash.logback.encoder.version>
+    </properties>
     <dependencies>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-framework-bom</artifactId>
-        <version>4.3.4.RELEASE</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-  <dependencies>
+        <!-- 0. Servlet接口库，服务器会提供， 编译、测试、运行需要，不会被打包 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.api}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <!--1.Spring核心容器-->
+        <!--自动导入部分 spring-core spring-beans spring-aop spring-jcl spring-expression-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--2.Spring MVC 容器-->
+        <!--自动导入部分 spring-web-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--3. 数据操作相关包-->
+        <!-- 3. 1 Spring数据操作封装包 -->
+        <!--自动导入部分 spring-jdbc spring-orm spring-tx-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- 3. 2 MyBatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <!-- 3.3 Mybatis-Spring整合包 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis.spring.version}</version>
+        </dependency>
+        <!-- 3.4 MySQL驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector}</version>
+        </dependency>
+        <!-- 3.5 DBCP2数据库连接池 -->
+        <!--自动导入 commom-logging-1.2 commom-pool2-2.6.1 commons-dbcp2-2.6.0-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>${dbcp2.version}</version>
+        </dependency>
+        <!-- 4. JSON数据格式，Jackson -->
+        <!--json库  jackson-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <!-- 5.日志，log4j2 -->
+        <!--Log4j2日志-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-jcl</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-web</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <!-- 6. 测试 JUnit+Spring Test -->
+        <!-- 6. 1 JUnit 5 -->
+        <!--测试使用-->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>${junitplatform.version}</version>
+            <scope>test</scope><!--在测试范围使用，不会放入打包目录-->
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope><!--在测试范围使用，不会放入打包目录-->
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- 6. 2 Spring测试框架 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- 7. aspectjweaver -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectjweaver.version}</version>
+        </dependency>
+        <!--8. 添加redis的java客户端 jedis的依赖 -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <!--9.jta事务-->
+        <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions-jdbc</artifactId>
+            <version>3.9.3</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>
 
-    <!--Json array start -->
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>${commons.beanutils}</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>${commons.collections}</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>${commons.lang}</version>
-    </dependency>
-    <dependency>
-      <groupId>net.sf.ezmorph</groupId>
-      <artifactId>ezmorph</artifactId>
-      <version>${ezmorph}</version>
-    </dependency>
-    <dependency>
-      <groupId>net.sf.json-lib</groupId>
-      <artifactId>json-lib</artifactId>
-      <version>${json.lib}</version>
-      <classifier>jdk15</classifier>
-    </dependency>
-    <!--Json array end -->
+        <!--log  -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.log.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.log.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!--Json array start -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons.beanutils}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons.collections}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ezmorph</groupId>
+            <artifactId>ezmorph</artifactId>
+            <version>${ezmorph}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>${json.lib}</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+        <!--Json array end -->
 
 
+        <!--分页插件https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
+        <!-- 分页要用到此包 https://mvnrepository.com/artifact/com.github.jsqlparser/jsqlparser -->
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>${pagehelper.jsqlparser}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>${zookeeper.version}</version>
+        </dependency>
 
-    <!--分页插件https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-->
-    <dependency>
-      <groupId>com.github.pagehelper</groupId>
-      <artifactId>pagehelper</artifactId>
-      <version>${pagehelper.version}</version>
-    </dependency>
-    <!-- 分页要用到此包 https://mvnrepository.com/artifact/com.github.jsqlparser/jsqlparser -->
-    <dependency>
-      <groupId>com.github.jsqlparser</groupId>
-      <artifactId>jsqlparser</artifactId>
-      <version>${pagehelper.jsqlparser}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.zookeeper</groupId>
-      <artifactId>zookeeper</artifactId>
-      <version>${zookeeper.version}</version>
-    </dependency>
 
-    <!--servlet -->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>${servelt.api}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>${jsp.api}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-      <version>${jstl.version}</version>
-    </dependency>
-    <!--mybatis -->
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
-      <version>${mybatis.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis-spring</artifactId>
-      <version>${mybatis.spring.version}</version>
-    </dependency>
-    <!--mysql  -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql.connector.java}</version>
-    </dependency>
-    <!--log  -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.log.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${slf4j.log.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>${log4j.version}</version>
-    </dependency>
-    <!--junit -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
-      <scope>compile</scope>
-    </dependency>
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>${mybatis.genertor.core}</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.mybatis.generator</groupId>
-      <artifactId>mybatis-generator-core</artifactId>
-      <version>${mybatis.genertor.core}</version>
-    </dependency>
+        <dependency>
+            <groupId>org.mybatis.caches</groupId>
+            <artifactId>mybatis-ehcache</artifactId>
+            <version>${mybatis.ehcache}</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.mybatis.caches</groupId>
-      <artifactId>mybatis-ehcache</artifactId>
-      <version>${mybatis.ehcache}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context-support</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-aop</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-      <version>${aspectjweaver.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${jackson.databind}</version>
-    </dependency>
-    <!-- 测试使用开始 -->
+        <!-- 测试使用开始 -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -246,147 +298,123 @@
             <version>2.4.0</version>
             <scope>test</scope>
         </dependency>
-    <!-- 测试使用结束 -->
-
-    <!--pringfox-swagger2 -->
-    <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
-      <version>${springfox.swagger2.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <version>${springfox.swagger2.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>cn.hutool</groupId>
-      <artifactId>hutool-all</artifactId>
-      <version>${huttol-all.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>net.logstash.logback</groupId>
-      <artifactId>logstash-logback-encoder</artifactId>
-      <version>${logstash.logback.encoder.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>au.com.dius</groupId>
-      <artifactId>pact-jvm-provider-junit5-spring</artifactId>
-      <version>4.0.10</version>
-      <scope>test</scope>
-    </dependency>
+        <!-- 测试使用结束 -->
 
 
-    <!--  <dependency>
-        <groupId>com.cache</groupId>
-        <artifactId>cache</artifactId>
-        <version>${cache.version}</version>
-      </dependency>-->
-  </dependencies>
+        <!--pringfox-swagger2 -->
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.swagger2.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${huttol-all.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash.logback.encoder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-junit5-spring</artifactId>
+            <version>4.0.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <!--  <dependency>
+            <groupId>com.cache</groupId>
+            <artifactId>cache</artifactId>
+            <version>${cache.version}</version>
+          </dependency>-->
+    </dependencies>
 
+    <build>
+        <finalName>mybatis_spring_demo</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 
-  <!--profiles 第一部分-->
-  <profiles>
-    <profile>
-      <id>dev</id>
-      <properties>
-        <env>dev</env>
-      </properties>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-    </profile>
-    <profile>
-      <id>test</id>
-      <properties>
-        <env>test</env>
-      </properties>
-    </profile>
-    <profile>
-      <id>prod</id>
-      <properties>
-        <env>prod</env>
-      </properties>
-    </profile>
-  </profiles>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
 
-  <build>
-    <finalName>mybatis_spring_demo</finalName>
-    <!--profiles 第二部分-->
-    <filters>
-      <filter>src/main/resources/profiles/${env}.properties</filter>
-    </filters>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-      <resource>
-        <directory>src/main/java</directory>
-        <includes>
-          <include>**/*.xml</include>
-          <include>**/*.properties</include>
-        </includes>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-          <encoding>UTF-8</encoding>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-compiler-javac</artifactId>
-            <version>1.8.1</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.10</version>
-        <configuration>
-          <skip>true</skip>
-          <testFailureIgnore>true</testFailureIgnore>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>8</source>
-          <target>8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-javac</artifactId>
+                        <version>1.8.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <skip>true</skip>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

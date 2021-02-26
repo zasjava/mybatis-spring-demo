@@ -23,28 +23,27 @@ import java.util.List;
  * @Author zhaoasong
  * @Date 2020-2-14 20:15
  **/
+@Api(value = "/dict", tags = "字典模块")
 @Controller
 @RequestMapping("/dict")
-@Api(value = "/dict",tags = "字典模块")
 public class DictController {
     @Autowired
     private SysDictService dictService;
 
-    @RequestMapping(value = "/dicts",method = RequestMethod.GET )
-    @ApiOperation(response = SysDict.class,notes = "分页查询字典列表",httpMethod = "GET",value = "/dicts")
+    @ApiOperation(response = SysDict.class, notes = "分页查询字典列表", httpMethod = "GET", value = "/dicts")
+    @RequestMapping(value = "/dicts", method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject lists(SysDict sysDict, @ApiParam("当前页") @RequestParam(value = "offset",defaultValue = "1") Integer offset, @ApiParam("每页显示行数") @RequestParam(value = "limit",defaultValue = "6") Integer limit){
+    public JSONObject lists(SysDict sysDict, @ApiParam("当前页") @RequestParam(value = "offset", defaultValue = "1") Integer offset, @ApiParam("每页显示行数") @RequestParam(value = "limit", defaultValue = "6") Integer limit) {
         JSONObject jsonObject = new JSONObject();
-        List<SysDict> lists =dictService.lists(sysDict, offset, limit);
+        List<SysDict> lists = dictService.lists(sysDict, offset, limit);
         PageInfo<SysDict> pageInfo = new PageInfo<>(lists);
-        jsonObject.put("total",pageInfo.getTotal());
+        jsonObject.put("total", pageInfo.getTotal());
         jsonObject.put("rows", pageInfo.getList());
         return jsonObject;
     }
 
-
-    @RequestMapping(value = "saveEdit", method = {RequestMethod.POST,RequestMethod.PUT})
-    @ApiOperation(value ="/dict/saveEdit",notes = "保存字典编辑",httpMethod = "POST",response = ModelAndView.class)
+    @ApiOperation(value = "/saveEdit", notes = "保存字典编辑", httpMethod = "POST", response = ModelAndView.class)
+    @RequestMapping(value = "saveEdit", method = {RequestMethod.POST, RequestMethod.PUT})
     @ResponseBody
     public CommonResult save(SysDict sysDict) {
         ModelAndView mv = new ModelAndView();
@@ -57,11 +56,10 @@ public class DictController {
 
     }
 
-
     //删除
-    @RequestMapping(value = "{dictId}",method = RequestMethod.DELETE)
+    @ApiOperation(value = "/{dictId}", notes = "字典删除", httpMethod = "DELETE", response = ModelMap.class)
+    @RequestMapping(value = "{dictId}", method = RequestMethod.DELETE)
     @ResponseBody
-    @ApiOperation(value ="/{dictId}",notes = "字典删除",httpMethod = "DELETE",response = ModelMap.class)
     public CommonResult delete(@PathVariable(value = "dictId") Long id) {
         System.out.println(id);
         ModelMap map = new ModelMap();
@@ -69,7 +67,7 @@ public class DictController {
             if (dictService.deleteByPrimaryKey(id) > 0 ? true : false) {
                 return CommonResult.success();
             }
-            return CommonResult.success(200,"数据已经删除" ,null);
+            return CommonResult.success(200, "数据已经删除", null);
         } catch (Exception e) {
             return CommonResult.failed("系统出现异常，请稍后重试");
         }

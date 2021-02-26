@@ -53,6 +53,7 @@ public class WebLogAspect {
 
     @Around("webLog()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        System.out.println("-----webLogAspect日志开始------");
         long startTime = System.currentTimeMillis();
         //获取当前请求对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -84,8 +85,10 @@ public class WebLogAspect {
         logMap.put("parameter",webLog.getParameter());
         logMap.put("spendTime",webLog.getSpendTime());
         logMap.put("description",webLog.getDescription());
+        System.out.println(JSONUtil.parse(webLog));
 //        LOGGER.info("{}", JSONUtil.parse(webLog));
        // LOGGER.info(Markers.appendEntries(logMap), JSONUtil.parse(webLog).toString());
+        System.out.println("---webLogAspect日志结束---");
         return result;
     }
 

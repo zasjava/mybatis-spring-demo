@@ -14,17 +14,18 @@ import org.springframework.web.servlet.ModelAndView;
  * @Author zhaoasong
  * @Date 2020-2-14 13:59
  **/
-@Controller
 @Api(value = "/", tags = "首页访问")
+@Controller
 public class IndexController {
-	@RequestMapping(value = {"/"},method = RequestMethod.GET)
-	@ApiOperation(value = "首页", notes = "去首页页面", httpMethod = "GET", response = ModelAndView.class)
-	public String index() {
-		return "index";
+
+	//登录页面跳转
+	@RequestMapping("/")
+	public String loginJSP(){
+		return "/user/login";
 	}
 
-	@RequestMapping(value = "/{path}/index" ,method = RequestMethod.GET)
 	@ApiOperation(value = "跳转页面",notes = "模块首页跳转",httpMethod = "GET" ,response = String.class)
+	@RequestMapping(value = "/{path}/index" ,method = RequestMethod.GET)
 	public String commonIndex(@PathVariable("path") String name) {
 		String path = "/"+name+"/"+name;
 		return path;

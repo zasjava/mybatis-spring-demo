@@ -1,29 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-						   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-						   http://www.springframework.org/schema/context
-						   http://www.springframework.org/schema/context/spring-context.xsd">
-	<context:property-placeholder location="classpath:jdbc.properties" />
-	<context:component-scan base-package="com.mybatis.spring">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan>
-	<bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
-		<property name="driver" value="${mysql.driver}"/>
-		<property name="url" value="${mysql.url}"/>
-		<property name="username" value="${mysql.username}"/>
-		<property name="password" value="${mysql.password}"/>
-	</bean>
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="typeAliasesPackage" value="com.mybatis.spring.*.pojo"/>
-		<property name="configLocation" value="classpath:mybatis/mybatis_config.xml"/>
-		<property name="mapperLocations" value="classpath*:mybatis/mapper/**"/>
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.mybatis.spring.*.mapper"/>
-	</bean>
-	<import resource="applicationContext-threadpool.xml"/>
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--
+        applicationContext.xml:
+            内容：
+                1. 非Web的组件扫描 context:component-scan
+                2. 占位符替代的属性文件 context:property-placeholder
+                3. 数据源 org.apache.commons.dbcp2.BasicDataSource
+                4. 整合的MyBatis会话工厂 org.mybatis.spring.SqlSessionFactoryBean
+                5. MyBatis映射器接口扫描 org.mybatis.spring.mapper.MapperScannerConfigurer
+                6. 事务管理和事务注解驱动 org.springframework.jdbc.datasource.DataSourceTransactionManager
+                    tx:annotation-driven
+                7. 线程池配置     org.springframework.scheduling.concurrent.ThreadPoolTaskExecuto
+                8.  连接redis单机版  com.mybatis.spring.jedis.JedisClientPool
+    -->
+
+    <!-- 1. 非Web的组件扫描 -->
+    <context:component-scan base-package="com.mybatis.spring">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 2. 占位符替代的属性文件 -->
+    <context:property-placeholder location="classpath:config.properties"/>
+
+    <!-- 3. 数据源 -->
+    <bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
+        <property name="driver" value="${mysql.driver}"/>
+        <property name="url" value="${mysql.url}"/>
+        <property name="username" value="${mysql.username}"/>
+        <property name="password" value="${mysql.password}"/>
+    </bean>
+
+    <!-- 4. 整合的MyBatis会话工厂 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="typeAliasesPackage" value="com.mybatis.spring.*.pojo"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis_config.xml"/>
+        <property name="mapperLocations" value="classpath*:mybatis/mapper/*/**/*"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 5. MyBatis映射器接口扫描-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.mybatis.spring.*.mapper,com.mybatis.spring.*.*.mapper"/>
+    </bean>
+
+    <!-- 6. 事务管理和事务注解驱动-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--7. 线程池配置 -->
+    <bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 线程池维护线程的最少数量 -->
+        <property name="corePoolSize" value="50"/>
+        <!--  线程池维护线程的最大数量，默认为Integer.MAX_VALUE -->
+        <property name="maxPoolSize" value="1000"/>
+        <!-- 线程池所使用的缓冲队列，一般需要设置值>=notifyScheduledMainExecutor.maxNum；默认为Integer.MAX_VALUE -->
+        <property name="queueCapacity" value="20000"/>
+        <!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+        <property name="keepAliveSeconds" value="300"/>
+        <!-- 线程池对拒绝任务（无线程可用）的处理策略，目前只支持AbortPolicy、CallerRunsPolicy；默认为后者 -->
+        <property name="rejectedExecutionHandler">
+            <!-- AbortPolicy:直接抛出java.util.concurrent.RejectedExecutionException异常 -->
+            <!-- CallerRunsPolicy:主线程直接执行该任务，执行完之后尝试添加下一个任务到线程池中，可以有效降低向线程池内添加任务的速度 -->
+            <!-- DiscardOldestPolicy:抛弃旧的任务、暂不支持；会导致被丢弃的任务无法再次被执行 -->
+            <!-- DiscardPolicy:抛弃当前任务、暂不支持；会导致被丢弃的任务无法再次被执行 -->
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"/>
+        </property>
+    </bean>
+
+    <!--8.  连接redis单机版 -->
+    <bean id="jedisClientPool" class="com.mybatis.spring.jedis.JedisClientPool">
+        <property name="jedisPool" ref="jedisPool"></property>
+    </bean>
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="host" value="${redis.host}"/>
+        <constructor-arg name="port" value="${redis.port}"/>
+    </bean>
 </beans>
