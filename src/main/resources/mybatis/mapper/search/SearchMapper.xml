@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.spring.search.mapper.SearchMapper" >
+    
+  <select id="getItemSearch" resultType="com.mybatis.spring.search.pojo.SearchPojo">
+    SELECT
+	t.id,
+	t.title,
+	t.price,
+	t.sell_point as sellPoint,
+	t.image,
+	c.`name` as catName,
+	d.item_desc as itemDesc
+FROM
+	tb_item t,
+	tb_item_cat c,
+	tb_item_desc d
+WHERE
+	t.cid = c.id
+AND t.id = d.item_id
+  </select>
+</mapper>

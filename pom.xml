@@ -21,13 +21,11 @@
         <mybatis.version>3.5.2</mybatis.version>
         <mybatis.spring.version>2.0.2</mybatis.spring.version>
         <jackson.version>2.9.9</jackson.version>
-        <log4j2.version>2.12.0</log4j2.version>
-        <log4j.version>1.2.17</log4j.version><!--待定日志-->
-        <slf4j.log.version>1.7.12</slf4j.log.version><!--待定日志-->
+        <log4j2.version>2.5</log4j2.version>
         <junitplatform.version>1.5.0</junitplatform.version>
         <junit.version>5.5.0</junit.version>
         <hamcrest.version>2.1</hamcrest.version>
-
+        <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <cache.version>1.0-SNAPSHOT</cache.version>
@@ -35,7 +33,6 @@
         <jsp.api>2.1</jsp.api>
         <jstl.version>1.2</jstl.version>
         <aspectjweaver.version>1.9.4</aspectjweaver.version>
-
         <mybatis.genertor.core>1.3.3</mybatis.genertor.core>
         <mybatis.ehcache>1.0.3</mybatis.ehcache>
         <zookeeper.version>3.4.6</zookeeper.version>
@@ -81,6 +78,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <!--3. 数据操作相关包-->
@@ -134,7 +136,17 @@
             <version>${jackson.version}</version>
         </dependency>
         <!-- 5.日志，log4j2 -->
-        <!--Log4j2日志-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.10</version>
+        </dependency>
+        <dependency> <!-- 桥接：告诉Slf4j使用Log4j2 -->
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -200,23 +212,27 @@
             <artifactId>jta</artifactId>
             <version>1.1</version>
         </dependency>
+        <!--10.fastdfs客户端-->
+        <dependency>
+            <groupId>net.oschina.zcx7878</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.27.0.0</version>
+        </dependency>
+        <!--11.文件上传包-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
+        </dependency>
+        <!--12. solrJ客户端-->
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>4.10.4</version>
+        </dependency>
 
-        <!--log  -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.log.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.log.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
+
+
 
         <!--Json array start -->
         <dependency>
@@ -300,7 +316,6 @@
         </dependency>
         <!-- 测试使用结束 -->
 
-
         <!--pringfox-swagger2 -->
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
         <dependency>
@@ -335,6 +350,18 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
+            <scope>compile</scope>
         </dependency>
         <!--  <dependency>
             <groupId>com.cache</groupId>

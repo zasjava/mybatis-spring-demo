@@ -19,16 +19,17 @@
                     tx:annotation-driven
                 7. 线程池配置     org.springframework.scheduling.concurrent.ThreadPoolTaskExecuto
                 8.  连接redis单机版  com.mybatis.spring.jedis.JedisClientPool
+                9. SolrServer的配置
     -->
 
     <!-- 1. 非Web的组件扫描 -->
     <context:component-scan base-package="com.mybatis.spring">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="regex" expression="com.mybatis.spring.aop.*"/>
     </context:component-scan>
 
     <!-- 2. 占位符替代的属性文件 -->
     <context:property-placeholder location="classpath:config.properties"/>
-
     <!-- 3. 数据源 -->
     <bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
         <property name="driver" value="${mysql.driver}"/>
@@ -83,4 +84,10 @@
         <constructor-arg name="host" value="${redis.host}"/>
         <constructor-arg name="port" value="${redis.port}"/>
     </bean>
+
+    <!-- 9. SolrServer的配置 -->
+    <bean id="httpSolrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+        <constructor-arg index="0" value="${SOLR.URL}"/>
+    </bean>
+
 </beans>

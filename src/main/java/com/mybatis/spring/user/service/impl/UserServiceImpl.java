@@ -9,6 +9,9 @@ import com.mybatis.spring.user.pojo.SysPermission;
 import com.mybatis.spring.user.pojo.SysUser;
 import com.mybatis.spring.user.pojo.SysUserExample;
 import com.mybatis.spring.user.service.UserService;
+import org.apache.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -21,6 +24,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     private SysUserMapper userMapper;
 
@@ -44,7 +48,7 @@ public class UserServiceImpl implements UserService {
         String pwd_db = sysUser.getPassword();
         String salt = sysUser.getSalt();//获取盐
         String pwd_salt = pwd + salt;//密码+盐值
-        System.out.println("登录密码验证用户的盐值： "+ pwd_salt);
+        LOGGER.debug("登录密码验证用户的盐值： "+ pwd_salt);
         String pwd_input = DigestUtils.md5DigestAsHex(pwd_salt.getBytes());//Spring带的MD5加密算法
         if (!pwd_db.equals(pwd_input)) {
             return ResponseResult.build(ResultCode.ERRORPWDORUSER.getCode(), ResultCode.ERRORPWDORUSER.getMessage());

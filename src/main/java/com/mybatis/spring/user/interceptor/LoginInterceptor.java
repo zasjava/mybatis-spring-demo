@@ -1,7 +1,11 @@
 package com.mybatis.spring.user.interceptor;
 
+import com.mybatis.spring.aop.WebLogAspect;
 import com.mybatis.spring.common.ResourcesUtil;
 import com.mybatis.spring.user.pojo.ActiveUser;
+import org.apache.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,7 +19,7 @@ import java.util.List;
  * Created by Administrator on 2017/12/21 0021.
  */
 public class LoginInterceptor implements HandlerInterceptor {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -30,8 +34,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (activeUser != null) {
             return true;
         } else {
-            System.out.println("登录拦截的url: " + request.getRequestURL());
-            request.getRequestDispatcher("/WEB-INF/jsp/user/login.jsp").forward(request, response);
+            LOGGER.debug("登录拦截的url: " + request.getRequestURL());
+            response.sendRedirect("/");
             return false;
         }
     }

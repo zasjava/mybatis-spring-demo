@@ -3,10 +3,11 @@ package com.mybatis.spring.user.controller;
 
 import com.mybatis.spring.common.ResponseResult;
 import com.mybatis.spring.user.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,21 +21,30 @@ public class UserController {
 
     //用户登录
     @RequestMapping("/user/login")
-    public String authrity(Model model, HttpSession session, String usercode, String password, String randomcode) {
-        //判断验证码是否正确
-        /*String  verifyCode = (String)session.getAttribute("validateCode");
-        if(!verifyCode.equals(randomcode)){
-            model.addAttribute("message","验证码错误!!");
-            return "error";
-        }*/
-        //调用方法
+    public ModelAndView authrity(HttpSession session, String usercode, String password, String randomcode) {
+        ModelAndView mv = new ModelAndView();
+        //非空校验
+        if (StringUtils.isEmpty(usercode) || StringUtils.isEmpty(password) || StringUtils.isEmpty(randomcode)) {
+            mv.setViewName("redirect:/");
+            return mv;
+        }
+        //验证码校验
+        String verifyCode = (String) session.getAttribute("validateCode");
+        if (!verifyCode.equals(randomcode)) {
+            mv.setViewName("/user/error");
+            mv.addObject("message", "验证码错误");
+            return mv;
+        }
+        //登录
         ResponseResult result = userService.authrity(usercode, password);
         if (result.getStatus() == 400) {
-            model.addAttribute("message", result.getMsg());
-            return "/user/error";
+            mv.addObject("message", result.getMsg());
+            mv.setViewName("/user/error");
+            return mv;
         }
-        //存入session信息
+        //用户信息存入session
         session.setAttribute("activeUser", result.getData());
-        return "redirect:/good/index";
+        mv.setViewName("redirect:/good/index");
+        return mv;
     }
 }

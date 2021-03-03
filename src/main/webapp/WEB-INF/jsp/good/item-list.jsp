@@ -69,7 +69,7 @@
         			
         			//加载商品规格
         			$.getJSON('/itemParamItem/'+data.id,function(_data){
-                        debugger;
+                        ;
         				if(_data && _data.status == 200 && _data.data && _data.data.paramData){
         					$("#itemeEditForm .params").show();
         					$("#itemeEditForm [name=itemParams]").val(_data.data.paramData);

@@ -12,6 +12,7 @@ import com.mybatis.spring.goods.mapper.TbItemMapper;
 import com.mybatis.spring.goods.mapper.TbItemParamItemMapper;
 import com.mybatis.spring.goods.pojo.*;
 import com.mybatis.spring.goods.service.ItemService;
+import com.mybatis.spring.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,8 @@ public class ItemServiceImpl implements ItemService {
     private TbItemDescMapper tbItemDescMapper;
     @Autowired
     private TbItemParamItemMapper tbItemParamItemMapper;
+    @Autowired
+    private SearchService searchService;
 
     @Override
     public TbItem getItemById(long itemId) {
@@ -108,6 +111,7 @@ public class ItemServiceImpl implements ItemService {
                 throw new Exception();//抛出异常,spring会捕获到这个异常.回滚事务.
             }
         }
+        searchService.sysnIndex(tbItem.getId());
         return ResponseResult.ok();
     }
 }

@@ -46,9 +46,14 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- 6. Servlet文件上传-->
+    <!-- 6.定义文件上传解析器 -->
     <bean id="multipartResolver"
-          class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设定默认编码 -->
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <!-- 设定文件上传的最大值5MB，10*1024*1024 -->
+        <property name="maxUploadSize" value="10485760"></property>
+    </bean>
 
     <!-- 7. 拦截器-->
     <mvc:interceptors>
@@ -64,6 +69,7 @@
             <mvc:exclude-mapping path="/**/*validatecode*"/>
             <mvc:exclude-mapping path="/**/*Login*"/>
             <mvc:exclude-mapping path="/**/*error*"/>
+            <mvc:exclude-mapping path="/**/*.css*"/>
             <bean class="com.mybatis.spring.user.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
         <!--<mvc:interceptor>
