@@ -1,18 +1,17 @@
 package com.mybatis.spring.search.controller;
 
-import com.mybatis.spring.common.ResponseResult;
+import com.mybatis.spring.common.responseUtil.ResponseResult;
 import com.mybatis.spring.search.service.SearchService;
 import com.mybatis.spring.search.pojo.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by Administrator on 2017/12/29 0029.
+ * 商品信息同步接口
  */
 @Controller
 public class SearchController {
@@ -32,6 +31,10 @@ public class SearchController {
         return mv;
     }
 
+    /**
+     * 同步数据数据到solr服务器
+     * @return
+     */
     @RequestMapping("/index/item/import")
     @ResponseBody
     public ResponseResult importItemIndex(){

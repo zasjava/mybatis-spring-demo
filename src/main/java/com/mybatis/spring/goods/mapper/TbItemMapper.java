@@ -1,20 +1,19 @@
 package com.mybatis.spring.goods.mapper;
 
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.mybatis.spring.goods.pojo.TbItem;
 import com.mybatis.spring.goods.pojo.TbItemExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface TbItemMapper {
+public interface TbItemMapper extends BaseMapper<TbItem> {
     int countByExample(TbItemExample example);
 
     int deleteByExample(TbItemExample example);
 
     int deleteByPrimaryKey(Long id);
-
-    int insert(TbItem record);
 
     int insertSelective(TbItem record);
 
@@ -29,4 +28,6 @@ public interface TbItemMapper {
     int updateByPrimaryKeySelective(TbItem record);
 
     int updateByPrimaryKey(TbItem record);
+
+    int updateGoodsBatchById(@Param("idArray") String[] idArray, @Param("goodStatus") Byte goodStatus);
 }

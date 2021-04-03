@@ -1,4 +1,4 @@
-package com.mybatis.spring.common;
+package com.mybatis.spring.common.responseUtil;
 
 import java.io.Serializable;
 import java.util.List;

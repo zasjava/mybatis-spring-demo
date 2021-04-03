@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2017/12/22 0022.
+ * 文件上传接口
  */
 @Controller
 @PropertySource("classpath:config.properties")
@@ -22,13 +23,13 @@ public class PictureController {
     private String IMAGE_SERVER_URL;
     private static FastDFSClient fastDFSClient = new FastDFSClient();
 
-    //1.获取到上传的文件
-    //2.调用fastDFS的工具类,实现上传
-    //3.上传成功后,我们获取到返回的字符串路径
-    //4.我们把字符串进行拼接    http://192.168.177.139/+返回的字符串
-    //5.返回json数据    如果成功的话  返回 {error:"0",url:"http://192.168.177.139/+返回的字符串"}
-    //6.如果失败的话:   返回{error:"1",message:"错误信息"}
-    @RequestMapping("/pic/upload")
+    /**
+     * 文件上传
+     * @param uploadFile
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/pic/upload",method = RequestMethod.POST)
     @ResponseBody
     public Map fileUpload(MultipartFile uploadFile, HttpServletRequest request) {
         try {

@@ -1,7 +1,7 @@
 package com.mybatis.spring.search.service.impl;
 
 
-import com.mybatis.spring.common.ResponseResult;
+import com.mybatis.spring.common.responseUtil.ResponseResult;
 import com.mybatis.spring.search.service.SearchService;
 import com.mybatis.spring.search.pojo.SearchPojo;
 import com.mybatis.spring.search.pojo.SearchResult;

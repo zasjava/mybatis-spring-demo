@@ -1,4 +1,4 @@
-package com.mybatis.spring.common;
+package com.mybatis.spring.enums;
 
 /**
  * 封装API的错误码

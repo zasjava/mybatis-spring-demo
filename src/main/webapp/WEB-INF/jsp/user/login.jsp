@@ -46,7 +46,10 @@
     </script>
 </head>
 <body style="background: #f6fdff url(../../images/user/images/login/bg1.jpg) repeat-x;">
+
+
 <form id="loginform" name="loginform" action="/user/login" method="post">
+
     <div class="logincon">
         <div class="title">
             <img alt="" src="../../images/user/images/login/logo.png">
@@ -57,6 +60,7 @@
         <div class="tab_con">
             <input type="password" style="display:none;"/>
             <table class="tab" border="0" cellSpacing="6" cellPadding="8">
+
                 <tbody>
                 <tr>
                     <td>用户名：</td>
@@ -71,10 +75,10 @@
                 <tr>
                     <td>验证码：</td>
                     <td><input id="randomcode" name="randomcode" size="8"/>
-                        <img id="randomcode_img" src="user/validatecode" alt=""
+                        <img id="randomcode_img" src="validatecode" alt=""
                              width="56" height="20" align='absMiddle'
-                             onclick="this.src='user/validatecode?d='+Math.random();"/>
-                        <a href="" onclick="this.src='user/validatecode?d='+Math.random();">刷新</a></td>
+                             onclick="this.src='validatecode?d='+Math.random();"/>
+                        <a href="" onclick="this.src='validatecode?d='+Math.random();">刷新</a></td>
                 </tr>
 
                 <tr>

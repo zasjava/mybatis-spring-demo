@@ -53,7 +53,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -94,17 +93,17 @@
             <version>${spring.version}</version>
         </dependency>
         <!-- 3. 2 MyBatis -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>${mybatis.version}</version>
         </dependency>
-        <!-- 3.3 Mybatis-Spring整合包 -->
+        &lt;!&ndash; 3.3 Mybatis-Spring整合包 &ndash;&gt;
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>${mybatis.spring.version}</version>
-        </dependency>
+        </dependency>-->
         <!-- 3.4 MySQL驱动 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -178,6 +177,17 @@
             <scope>test</scope><!--在测试范围使用，不会放入打包目录-->
         </dependency>
         <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>4.12.0-RC2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
             <version>${hamcrest.version}</version>
@@ -200,6 +210,11 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.caches</groupId>
+            <artifactId>mybatis-ehcache</artifactId>
+            <version>${mybatis.ehcache}</version>
         </dependency>
         <!--9.jta事务-->
         <dependency>
@@ -230,46 +245,140 @@
             <artifactId>solr-solrj</artifactId>
             <version>4.10.4</version>
         </dependency>
-
-
-
-
-        <!--Json array start -->
+        <!--13ActiveMQ 依赖-->
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${commons.beanutils}</version>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+            <version>5.4.2</version>
         </dependency>
         <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>${commons.collections}</version>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-pool</artifactId>
+            <version>5.4.2</version>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${commons.lang}</version>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-web</artifactId>
+            <version>5.4.2</version>
         </dependency>
         <dependency>
-            <groupId>net.sf.ezmorph</groupId>
-            <artifactId>ezmorph</artifactId>
-            <version>${ezmorph}</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.1.35</version>
         </dependency>
+        <!--14 japidoc文档接口依赖-->
         <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <version>${json.lib}</version>
-            <classifier>jdk15</classifier>
+            <groupId>io.github.yedaxia</groupId>
+            <artifactId>japidocs</artifactId>
+            <version>1.4.3</version>
         </dependency>
-        <!--Json array end -->
-
-
-        <!--分页插件https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-->
+        <!--15 mybatis 分页插件依赖-->
+        <!--参考文档：https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>${pagehelper.version}</version>
         </dependency>
+        <!--16 maven 常用工具类依赖 -->
+        <!--16.1 字符串处理依赖 -->
+        <!--参考文档： https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <!--16.2 集合类操作依赖 -->
+        <!--参考文档： https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.3</version>
+        </dependency>
+        <!--16.2 io类操作依赖 -->
+        <!--参考文档： https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <!--16.3 编解码操作依赖 -->
+        <!--参考文档： https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.13</version>
+        </dependency>
+        <!--16.4 覆盖字符串处理、集合操作、并发、缓存等依赖；提供者：谷歌 -->
+        <!--参考文档：https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.0-jre</version>
+        </dependency>
+        <!--16.5 guava-retrying是基于guava的一个库 -->
+        <!--参考文档：https://mvnrepository.com/artifact/com.github.rholder/guava-retrying -->
+        <dependency>
+            <groupId>com.github.rholder</groupId>
+            <artifactId>guava-retrying</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+
+
+        <!--17  代码自动生成工具 -->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>${mybatis.genertor.core}</version>
+        </dependency>
+        <!--18 mybatis-plus  -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <!--18 lombok  -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.14</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--19 generator  -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <!-- 20  mybatisplus逆向工程需要模板引擎，用freemaker也行 -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <!-- 21  excel  -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
+
+        <!-- 22  基于excel模板导出excel=>使用jxls -->
+        <dependency>
+            <groupId>net.sf.jxls</groupId>
+            <artifactId>jxls-core</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
         <!-- 分页要用到此包 https://mvnrepository.com/artifact/com.github.jsqlparser/jsqlparser -->
         <dependency>
             <groupId>com.github.jsqlparser</groupId>
@@ -282,87 +391,6 @@
             <version>${zookeeper.version}</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-core</artifactId>
-            <version>${mybatis.genertor.core}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mybatis.caches</groupId>
-            <artifactId>mybatis-ehcache</artifactId>
-            <version>${mybatis.ehcache}</version>
-        </dependency>
-
-        <!-- 测试使用开始 -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>1.9.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.restassured</groupId>
-            <artifactId>spring-mock-mvc</artifactId>
-            <version>2.4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- 测试使用结束 -->
-
-        <!--pringfox-swagger2 -->
-        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox.swagger2.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox.swagger2.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${huttol-all.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>${logstash.logback.encoder.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-provider-junit5-spring</artifactId>
-            <version>4.0.10</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.11</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.15</version>
-            <scope>compile</scope>
-        </dependency>
         <!--  <dependency>
             <groupId>com.cache</groupId>
             <artifactId>cache</artifactId>
@@ -388,6 +416,18 @@
         </resources>
 
         <plugins>
+            <!-- 让maven不编译xls文件，但仍将其打包 -->
+            <!-- jxls使用模板导出excel时使用 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>xls</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>

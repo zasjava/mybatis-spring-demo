@@ -12,6 +12,7 @@ public class ActiveUser implements java.io.Serializable {
 	private String userid;//用户id（主键）
 	private String usercode;// 用户账号
 	private String username;// 用户名称
+	private String roleName; //当前角色
 
 	private List<SysPermission> menus;// 菜单
 	private List<SysPermission> permissions;// 权限

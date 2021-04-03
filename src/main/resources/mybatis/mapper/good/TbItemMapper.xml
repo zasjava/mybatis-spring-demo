@@ -288,6 +288,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.mybatis.spring.goods.pojo.TbItem" >
     update tb_item
     set title = #{title,jdbcType=VARCHAR},
@@ -301,5 +302,15 @@
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateGoodsBatchById">
+    update tb_item
+    set status =  #{goodStatus,jdbcType=TINYINT},
+      updated = now()
+    where id in
+    <foreach open="("  close=")" collection="idArray" item="id" separator=",">
+      #{id}
+    </foreach>
   </update>
 </mapper>

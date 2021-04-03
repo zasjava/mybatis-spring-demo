@@ -2,11 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
     <!--
         applicationContext.xml:
             内容：
@@ -21,16 +21,15 @@
                 8.  连接redis单机版  com.mybatis.spring.jedis.JedisClientPool
                 9. SolrServer的配置
     -->
-
-    <!-- 1. 非Web的组件扫描 -->
+    <!-- 非Web的组件扫描 -->
     <context:component-scan base-package="com.mybatis.spring">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="regex" expression="com.mybatis.spring.aop.*"/>
     </context:component-scan>
 
-    <!-- 2. 占位符替代的属性文件 -->
+    <!-- 占位符替代的属性文件 -->
     <context:property-placeholder location="classpath:config.properties"/>
-    <!-- 3. 数据源 -->
+    <!-- 数据源 -->
     <bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
         <property name="driver" value="${mysql.driver}"/>
         <property name="url" value="${mysql.url}"/>
@@ -38,25 +37,43 @@
         <property name="password" value="${mysql.password}"/>
     </bean>
 
-    <!-- 4. 整合的MyBatis会话工厂 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="typeAliasesPackage" value="com.mybatis.spring.*.pojo"/>
+    <!-- 整合的MyBatis会话工厂 -->
+    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:mybatis/mybatis_config.xml"/>
+        <property name="typeAliasesPackage" value="com.mybatis.spring.*.pojo"/>
         <property name="mapperLocations" value="classpath*:mybatis/mapper/*/**/*"/>
-        <property name="dataSource" ref="dataSource"/>
+        <!-- 注入全局配置 -->
+        <property name="globalConfig" ref="globalConfiguration"/>
     </bean>
-    <!-- 5. MyBatis映射器接口扫描-->
+    <bean id="globalConfiguration" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
+        <!-- 2.3版本后，驼峰命名默认值就是true，所以可不配置 -->
+        <property name="dbColumnUnderline" value="true"/>
+        <!-- 全局主键自增策略，0表示auto -->
+        <property name="idType" value="0"/>
+        <!-- 全局表前缀配置 -->
+    </bean>
+
+
+
+
+    <!-- MyBatis映射器接口扫描-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.mybatis.spring.*.mapper,com.mybatis.spring.*.*.mapper"/>
     </bean>
+    <!-- 监听器 -->
+    <bean class="com.mybatis.spring.listener.SpringContextStartListener"/>
+    <bean class="com.mybatis.spring.listener.SpringContextStopListener" />
+    <bean class="com.mybatis.spring.listener.BeforeBeanInstantiationHandle"/>
 
-    <!-- 6. 事务管理和事务注解驱动-->
+    <!-- 事务管理和事务注解驱动-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+    <aop:aspectj-autoproxy expose-proxy="true"/>
 
-    <!--7. 线程池配置 -->
+    <!--线程池配置 -->
     <bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <!-- 线程池维护线程的最少数量 -->
         <property name="corePoolSize" value="50"/>
@@ -76,7 +93,7 @@
         </property>
     </bean>
 
-    <!--8.  连接redis单机版 -->
+    <!--连接redis单机版 -->
     <bean id="jedisClientPool" class="com.mybatis.spring.jedis.JedisClientPool">
         <property name="jedisPool" ref="jedisPool"></property>
     </bean>
@@ -85,9 +102,24 @@
         <constructor-arg name="port" value="${redis.port}"/>
     </bean>
 
-    <!-- 9. SolrServer的配置 -->
+    <!-- SolrServer的配置 -->
     <bean id="httpSolrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
         <constructor-arg index="0" value="${SOLR.URL}"/>
     </bean>
-
+    <!-- 10 activemq配置 -->
+    <bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${activemq.brokerUrl}" />
+        <property name="userName" value="admin"/>
+        <property name="password" value="admin"/>
+    </bean>
+    <bean id="connectionFactory"
+          class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="targetConnectionFactory" />
+    </bean>
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+    </bean>
+    <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg value="item-topic" />
+    </bean>
 </beans>

@@ -1,8 +1,8 @@
 package com.mybatis.spring.goods.service.impl;
 
 
-import com.mybatis.spring.common.JsonUtils;
-import com.mybatis.spring.common.ResponseResult;
+import com.mybatis.spring.common.jsonUtil.JsonUtils;
+import com.mybatis.spring.common.responseUtil.ResponseResult;
 import com.mybatis.spring.goods.mapper.TbItemParamItemMapper;
 import com.mybatis.spring.goods.mapper.TbItemParamMapper;
 import com.mybatis.spring.goods.pojo.TbItemParam;

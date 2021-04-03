@@ -1,10 +1,6 @@
 package com.mybatis.spring.aop;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.URLUtil;
-import cn.hutool.json.JSONUtil;
-import com.mybatis.spring.common.WebLog;
-import io.swagger.annotations.ApiOperation;
+import com.mybatis.spring.common.logUtil.WebLog;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -63,13 +59,7 @@ public class WebLogAspect {
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method method = methodSignature.getMethod();
-        if (method.isAnnotationPresent(ApiOperation.class)) {
-            ApiOperation log = method.getAnnotation(ApiOperation.class);
-            webLog.setDescription(log.value());
-        }
         long endTime = System.currentTimeMillis();
-        String urlStr = request.getRequestURL().toString();
-        webLog.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
         webLog.setIp(request.getRemoteUser());
         webLog.setMethod(request.getMethod());
         webLog.setParameter(getParameter(method, joinPoint.getArgs()));
@@ -84,7 +74,6 @@ public class WebLogAspect {
         logMap.put("parameter",webLog.getParameter());
         logMap.put("spendTime",webLog.getSpendTime());
         logMap.put("description",webLog.getDescription());
-        LOGGER.info(JSONUtil.parse(webLog).toString());
         return result;
     }
 

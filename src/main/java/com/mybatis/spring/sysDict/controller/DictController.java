@@ -1,20 +1,19 @@
 package com.mybatis.spring.sysDict.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.mybatis.spring.common.CommonResult;
+import com.mybatis.spring.common.responseUtil.CommonResult;
 import com.mybatis.spring.sysDict.pojo.SysDict;
 import com.mybatis.spring.sysDict.service.SysDictService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import net.sf.json.JSONObject;
+import io.github.yedaxia.apidocs.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -23,26 +22,30 @@ import java.util.List;
  * @Author zhaoasong
  * @Date 2020-2-14 20:15
  **/
-@Api(value = "/dict", tags = "字典模块")
+@Ignore
 @Controller
 @RequestMapping("/dict")
 public class DictController {
     @Autowired
     private SysDictService dictService;
 
-    @ApiOperation(response = SysDict.class, notes = "分页查询字典列表", httpMethod = "GET", value = "/dicts")
     @RequestMapping(value = "/dicts", method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject lists(SysDict sysDict, @ApiParam("当前页") @RequestParam(value = "offset", defaultValue = "1") Integer offset, @ApiParam("每页显示行数") @RequestParam(value = "limit", defaultValue = "6") Integer limit) {
-        JSONObject jsonObject = new JSONObject();
+    public Map<String, Object> lists(SysDict sysDict, @RequestParam(value = "offset", defaultValue = "1") Integer offset, @RequestParam(value = "limit", defaultValue = "6") Integer limit) {
+        Map<String, Object> maps = new HashMap<String, Object>();
         List<SysDict> lists = dictService.lists(sysDict, offset, limit);
         PageInfo<SysDict> pageInfo = new PageInfo<>(lists);
-        jsonObject.put("total", pageInfo.getTotal());
-        jsonObject.put("rows", pageInfo.getList());
-        return jsonObject;
+        maps.put("total", pageInfo.getTotal());
+        maps.put("rows", pageInfo.getList());
+        return maps;
     }
 
-    @ApiOperation(value = "/saveEdit", notes = "保存字典编辑", httpMethod = "POST", response = ModelAndView.class)
+    /**
+     *保存字典数据
+     *
+     * @param sysDict 字典类
+     * @return
+     */
     @RequestMapping(value = "saveEdit", method = {RequestMethod.POST, RequestMethod.PUT})
     @ResponseBody
     public CommonResult save(SysDict sysDict) {
@@ -57,7 +60,6 @@ public class DictController {
     }
 
     //删除
-    @ApiOperation(value = "/{dictId}", notes = "字典删除", httpMethod = "DELETE", response = ModelMap.class)
     @RequestMapping(value = "{dictId}", method = RequestMethod.DELETE)
     @ResponseBody
     public CommonResult delete(@PathVariable(value = "dictId") Long id) {

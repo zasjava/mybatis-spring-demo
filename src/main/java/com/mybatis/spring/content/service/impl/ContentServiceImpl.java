@@ -1,7 +1,7 @@
 package com.mybatis.spring.content.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.mybatis.spring.common.JsonUtils;
+import com.mybatis.spring.common.jsonUtil.JsonUtils;
 import com.mybatis.spring.content.mapper.TbContentMapper;
 import com.mybatis.spring.content.pojo.TbContent;
 import com.mybatis.spring.content.pojo.TbContentExample;

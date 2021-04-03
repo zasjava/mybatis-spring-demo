@@ -1,6 +1,7 @@
 package com.mybatis.spring.fastdfs.controller;
 
 import com.mybatis.spring.fastdfs.client.*;
+import io.github.yedaxia.apidocs.Ignore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.Locale;
  * @name FileObjectController
  * @date 2017-10-15 14:09
  */
+@Ignore
 @Controller
 @PropertySource("classpath:config.properties")
 @RequestMapping("/fastdfs")

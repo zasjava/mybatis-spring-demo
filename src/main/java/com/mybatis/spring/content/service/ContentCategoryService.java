@@ -1,7 +1,6 @@
 package com.mybatis.spring.content.service;
 
-import com.mybatis.spring.common.TreeResult;
-import com.mybatis.spring.content.pojo.TbContentCategory;
+import com.mybatis.spring.common.responseUtil.TreeResult;
 
 import java.util.List;
 

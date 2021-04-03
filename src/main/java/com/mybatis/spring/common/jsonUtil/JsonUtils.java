@@ -1,4 +1,4 @@
-package com.mybatis.spring.common;
+package com.mybatis.spring.common.jsonUtil;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;

@@ -1,11 +1,11 @@
-package com.mybatis.spring.common;
+package com.mybatis.spring.enums;
 
 /**
  * 枚举了一些常用API操作码
  * Created by macro on 2019/4/19.
  */
 
-public enum ResultCode implements IErrorCode {
+public enum ResultCodeStatus implements IErrorCode {
     SUCCESS(200, "操作成功"),
     ISNULL(201, "结果为null"),
     FAILED(500, "操作失败"),
@@ -18,7 +18,7 @@ public enum ResultCode implements IErrorCode {
     private Integer code;
     private String message;
 
-    private ResultCode(Integer code, String message) {
+    private ResultCodeStatus(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

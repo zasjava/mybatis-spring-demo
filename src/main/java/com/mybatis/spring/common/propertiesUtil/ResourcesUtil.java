@@ -1,4 +1,4 @@
-package com.mybatis.spring.common;
+package com.mybatis.spring.common.propertiesUtil;
 
 import java.io.Serializable;
 import java.text.MessageFormat;

@@ -1,4 +1,4 @@
-package com.mybatis.spring.common;
+package com.mybatis.spring.common.UUIDUtil;
 
 import java.util.Random;
 

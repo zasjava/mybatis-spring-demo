@@ -3,18 +3,17 @@ package com.mybatis.spring.user.mapper;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.mybatis.spring.user.pojo.SysUser;
 import com.mybatis.spring.user.pojo.SysUserExample;
 import org.apache.ibatis.annotations.Param;
 
-public interface SysUserMapper {
+public interface SysUserMapper  extends BaseMapper<SysUser> {
     int countByExample(SysUserExample example);
 
     int deleteByExample(SysUserExample example);
 
     int deleteByPrimaryKey(String id);
-
-    int insert(SysUser record);
 
     int insertSelective(SysUser record);
 

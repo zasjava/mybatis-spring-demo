@@ -1,7 +1,7 @@
 package com.mybatis.spring.goods.service;
 
 
-import com.mybatis.spring.common.ResponseResult;
+import com.mybatis.spring.common.responseUtil.ResponseResult;
 import com.mybatis.spring.goods.pojo.TbItemParam;
 
 import java.util.List;

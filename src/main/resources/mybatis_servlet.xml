@@ -19,10 +19,10 @@
                 6. Servlet文件上传
                 7. 拦截器
     -->
-    <!--1. Web MVC的注解驱动-->
+    <!--Web MVC的注解驱动-->
     <mvc:annotation-driven/>
 
-    <!--2. Web端组件扫描 -->
+    <!-- Web端组件扫描 -->
     <context:component-scan base-package="com.mybatis.spring.*.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
@@ -30,23 +30,21 @@
     <context:component-scan base-package="com.mybatis.spring.aop"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-    <!--4. 静态资源处理 -->
+    <!--  静态资源处理 -->
     <mvc:resources mapping="/jsp/**" location="/WEB-INF/jsp/"/>
     <mvc:resources mapping="/images/**" location="/WEB-INF/images/"/>
     <mvc:resources mapping="/plugins/**" location="/WEB-INF/plugins/"/>
     <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
     <mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>
-    <mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>
-    <mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
 
-    <!-- 5.视图解析器 -->
+    <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- 6.定义文件上传解析器 -->
+    <!--  定义文件上传解析器 -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- 设定默认编码 -->
@@ -55,7 +53,7 @@
         <property name="maxUploadSize" value="10485760"></property>
     </bean>
 
-    <!-- 7. 拦截器-->
+    <!--  拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>

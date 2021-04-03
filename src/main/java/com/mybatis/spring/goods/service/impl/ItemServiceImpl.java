@@ -1,23 +1,26 @@
 package com.mybatis.spring.goods.service.impl;
 
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mybatis.spring.common.DatagridResult;
-import com.mybatis.spring.common.IDUtils;
-import com.mybatis.spring.common.ResponseResult;
-import com.mybatis.spring.common.ResultCode;
+import com.mybatis.spring.common.responseUtil.DatagridResult;
+import com.mybatis.spring.common.UUIDUtil.IDUtils;
+import com.mybatis.spring.common.responseUtil.ResponseResult;
+import com.mybatis.spring.enums.ResultCodeStatus;
 import com.mybatis.spring.goods.mapper.TbItemDescMapper;
 import com.mybatis.spring.goods.mapper.TbItemMapper;
 import com.mybatis.spring.goods.mapper.TbItemParamItemMapper;
 import com.mybatis.spring.goods.pojo.*;
 import com.mybatis.spring.goods.service.ItemService;
-import com.mybatis.spring.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
+import javax.jms.*;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +28,7 @@ import java.util.List;
  * Created by Administrator on 2017/10/18.
  */
 @Service
-public class ItemServiceImpl implements ItemService {
+public class ItemServiceImpl extends ServiceImpl<TbItemMapper, TbItem> implements ItemService {
     @Autowired
     private TbItemMapper tbItemMapper;
     @Autowired
@@ -33,7 +36,11 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private TbItemParamItemMapper tbItemParamItemMapper;
     @Autowired
-    private SearchService searchService;
+    private JmsTemplate jmsTemplate;
+
+    @Resource(name="topicDestination")
+    private Destination destination;
+
 
     @Override
     public TbItem getItemById(long itemId) {
@@ -54,9 +61,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResponseResult saveItem(TbItem tbItem, String desc, String itemParams) throws Exception {
-        ResponseResult result = ResponseResult.build(ResultCode.FAILED.getCode(), ResultCode.FAILED.getMessage());
+        ResponseResult result = ResponseResult.build(ResultCodeStatus.FAILED.getCode(), ResultCodeStatus.FAILED.getMessage());
         if (tbItem.getId() == null) {
             //补全主键,状态,创建时间,修改时间
             long itemId = IDUtils.genItemId();//使用工具类生成商品id
@@ -111,7 +118,26 @@ public class ItemServiceImpl implements ItemService {
                 throw new Exception();//抛出异常,spring会捕获到这个异常.回滚事务.
             }
         }
-        searchService.sysnIndex(tbItem.getId());
+        //发送activeMQ消息  topic
+        //发送一个商品添加消息
+        jmsTemplate.send(destination, new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                TextMessage textMessage = session.createTextMessage(tbItem.getId() + "");
+                return textMessage;
+            }
+        });
         return ResponseResult.ok();
     }
+
+    @Override
+    public boolean updateGoodsBatchById(String[] idArray,String goodStatus) {
+        int length = tbItemMapper.updateGoodsBatchById(idArray,Byte.valueOf(goodStatus));
+        if (length<=idArray.length&&length>0){
+            return true;
+        }
+        return false;
+    }
+
+
 }

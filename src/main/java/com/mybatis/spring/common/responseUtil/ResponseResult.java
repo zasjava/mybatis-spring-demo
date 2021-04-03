@@ -1,4 +1,4 @@
-package com.mybatis.spring.common;
+package com.mybatis.spring.common.responseUtil;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

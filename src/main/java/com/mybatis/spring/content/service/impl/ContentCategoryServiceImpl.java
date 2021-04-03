@@ -1,7 +1,6 @@
 package com.mybatis.spring.content.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.mybatis.spring.common.TreeResult;
+import com.mybatis.spring.common.responseUtil.TreeResult;
 import com.mybatis.spring.content.mapper.TbContentCategoryMapper;
 import com.mybatis.spring.content.pojo.TbContentCategory;
 import com.mybatis.spring.content.pojo.TbContentCategoryExample;

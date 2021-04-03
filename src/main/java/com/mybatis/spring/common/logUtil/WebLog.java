@@ -1,4 +1,4 @@
-package com.mybatis.spring.common;
+package com.mybatis.spring.common.logUtil;
 
 /**
  * Controller层的日志封装类
