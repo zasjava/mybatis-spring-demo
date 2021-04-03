@@ -313,7 +313,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>28.0-jre</version>
+            <version>29.0-jre</version>
         </dependency>
         <!--16.5 guava-retrying是基于guava的一个库 -->
         <!--参考文档：https://mvnrepository.com/artifact/com.github.rholder/guava-retrying -->
