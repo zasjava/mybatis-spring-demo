@@ -39,7 +39,7 @@
         <pagehelper.version>5.0.0</pagehelper.version>
         <pagehelper.jsqlparser>1.2</pagehelper.jsqlparser>
         <springfox.swagger2.version>2.7.0</springfox.swagger2.version>
-        <commons.beanutils>1.7.0</commons.beanutils>
+        <commons.beanutils>1.9.4</commons.beanutils>
         <commons.collections>3.1</commons.collections>
         <commons.lang>2.5</commons.lang>
         <ezmorph>1.0.3</ezmorph>
