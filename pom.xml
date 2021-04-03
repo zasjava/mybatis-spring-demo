@@ -264,7 +264,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.1.35</version>
+            <version>1.2.25.sec10</version>
         </dependency>
         <!--14 japidoc文档接口依赖-->
         <dependency>
