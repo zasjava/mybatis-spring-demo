@@ -25,7 +25,7 @@
         <junitplatform.version>1.5.0</junitplatform.version>
         <junit.version>5.5.0</junit.version>
         <hamcrest.version>2.1</hamcrest.version>
-        <commons-fileupload.version>1.3.1</commons-fileupload.version>
+        <commons-fileupload.version>1.3.3</commons-fileupload.version>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <cache.version>1.0-SNAPSHOT</cache.version>
