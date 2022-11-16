@@ -20,7 +20,7 @@
         <mysql.connector>5.1.49</mysql.connector>
         <mybatis.version>3.5.2</mybatis.version>
         <mybatis.spring.version>2.0.2</mybatis.spring.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <log4j2.version>2.5</log4j2.version>
         <junitplatform.version>1.5.0</junitplatform.version>
         <junit.version>5.5.0</junit.version>
